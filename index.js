@@ -24,7 +24,7 @@ async function fetchEventHandler(event) {
   if (pathParts.length === 2) {
     if (pathParts[1] === "") {
       // Front page - list available releases
-      let apiUrl = `https://api.github.com/repos/${REPOSITORY}/releases`;
+      let apiUrl = `https://api.github.com/repos/${REPOSITORY}/releases?per_page=100`;
       console.log(apiUrl);
       let response = await fetch(apiUrl, { headers: config });
       if (response.status !== 200) {

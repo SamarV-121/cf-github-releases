@@ -77,12 +77,14 @@ export function listFilesHTML(repository, data) {
   for (let item of data["assets"]) {
     let name = item["name"];
     let size = item["size"];
+    let download_count = item["download_count"];
     let sizeHuman = humanFileSize(size);
     let sizeActual = size.toLocaleString() + (size === 1 ? " byte" : " bytes");
     let updated = formatDate(item["updated_at"]);
     tbody += `<tr style="color:white">
     <td><a href="/${tag}/${name}">${getItemIcon(name)} ${name}</a></td>
     <td><span title="${sizeActual}">${sizeHuman}</span></td>
+    <td>${download_count}</td>
     <td><time>${updated}</time></td>
     </tr>`;
   }
@@ -97,7 +99,7 @@ export function listFilesHTML(repository, data) {
     </div>
     <div class="container-fluid container-md table-responsive">
       <table style="background-color:#292a2d" class="table table-hover text-nowrap">
-        <thead class="thead-dark"><tr><th>File</th><th>Size</th><th>Updated</th></tr></thead>
+        <thead class="thead-dark"><tr><th>File</th><th>Size</th><th>Downloads</th><th>Updated</th></tr></thead>
         <tbody>
           <tr><td colspan="2">
             <a href="../">${makeIconHTML("fas fa-lg fa-fw fa-level-up-alt")} Parent directory</a>

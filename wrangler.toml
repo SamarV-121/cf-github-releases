@@ -1,0 +1,5 @@
+name = "github"
+main = "index.js"
+routes = ["*builds.samarv121.wtf/*"]
+compatibility_date = "2022-05-30"
+account_id = ""

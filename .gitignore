@@ -1,7 +1,5 @@
 # Special
-config.js
 package-lock.json
-wrangler.toml
 worker/
 
 # Logs

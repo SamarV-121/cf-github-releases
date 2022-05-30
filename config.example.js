@@ -13,5 +13,8 @@ const SITE_NAME = "My GitHub bucket";
 // Any extra <head> content you want. CSS, favicons are all welcome!
 const HEAD = ``;
 
+// Github token - for private repos (optional)
+const GITHUB_TOKEN = undefined;
+
 // Don't touch this line
-export {DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME, HEAD};
+export {DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME, HEAD, GITHUB_TOKEN};

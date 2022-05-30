@@ -1,4 +1,4 @@
-import { DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME } from "./config";
+import { DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME, GITHUB_TOKEN } from "./config";
 import { listFilesHTML, listReleasesHTML, createHTMLResponse } from "./ui";
 
 addEventListener("fetch", (event) => event.respondWith(fetchEventHandler(event)));
@@ -13,6 +13,12 @@ async function fetchEventHandler(event) {
     return new Response("User-Agent: *\nDisallow: /\n", { status: 200, headers: { "Content-Type": "text/plain" }})
   }
 
+  if (typeof GITHUB_TOKEN == "undefined") {
+    config = { "User-Agent": `Repository ${REPOSITORY}` }
+  } else {
+    config = { "Authorization": `token ${GITHUB_TOKEN}`, "User-Agent": `Repository ${REPOSITORY}` }
+  }
+
   let newUrl, tag, filename;
   let pathParts = url.pathname.split("/");
   if (pathParts.length === 2) {
@@ -20,7 +26,7 @@ async function fetchEventHandler(event) {
       // Front page - list available releases
       let apiUrl = `https://api.github.com/repos/${REPOSITORY}/releases`;
       console.log(apiUrl);
-      let response = await fetch(apiUrl, { headers: { "User-Agent": `Repository ${REPOSITORY}` } });
+      let response = await fetch(apiUrl, { headers: config });
       if (response.status !== 200) {
         console.log(response.status);
         console.log(response.body.read());
@@ -46,7 +52,7 @@ async function fetchEventHandler(event) {
       // Fetch GitHub API and list files
       let apiUrl = `https://api.github.com/repos/${REPOSITORY}/releases/tags/${tag}`;
       console.log(apiUrl);
-      let response = await fetch(apiUrl, { headers: { "User-Agent": `Repository ${REPOSITORY}` } });
+      let response = await fetch(apiUrl, { headers: config });
       if (response.status !== 200) {
         console.log(response.status);
         console.log(response.body.read());

@@ -80,7 +80,7 @@ export function listFilesHTML(repository, data) {
     let sizeHuman = humanFileSize(size);
     let sizeActual = size.toLocaleString() + (size === 1 ? " byte" : " bytes");
     let updated = formatDate(item["updated_at"]);
-    tbody += `<tr>
+    tbody += `<tr style="color:white">
     <td><a href="/${tag}/${name}">${getItemIcon(name)} ${name}</a></td>
     <td><span title="${sizeActual}">${sizeHuman}</span></td>
     <td><time>${updated}</time></td>
@@ -90,14 +90,14 @@ export function listFilesHTML(repository, data) {
   return makeHTML(
     displayName,
     `<div class="container-fluid container-md">
-      <div class="py-5 text-center">
+      <div style="color:white" class="py-5 text-center">
         <h1>${displayName}</h1>
         ${description}
       </div>
     </div>
     <div class="container-fluid container-md table-responsive">
-      <table class="table table-hover border bg-white text-nowrap">
-        <thead class="thead-light"><tr><th>File</th><th>Size</th><th>Updated</th></tr></thead>
+      <table style="background-color:#292a2d" class="table table-hover text-nowrap">
+        <thead class="thead-dark"><tr><th>File</th><th>Size</th><th>Updated</th></tr></thead>
         <tbody>
           <tr><td colspan="2">
             <a href="../">${makeIconHTML("fas fa-lg fa-fw fa-level-up-alt")} Parent directory</a>
@@ -128,7 +128,7 @@ export function listReleasesHTML(data) {
       iconHTML = getItemIcon("$folder");
     }
 
-    let newItem = `<tr>
+    let newItem = `<tr style="color:white">
       <td><a href="/${tag}/">${iconHTML} ${tag}</a></td>
       <td>${name}</td>
       <td><time>${publishTime}</time></td>
@@ -143,11 +143,11 @@ export function listReleasesHTML(data) {
   return makeHTML(
     "Home",
     `<div class="container-fluid container-md">
-      <h1 class="py-5 text-center">${SITE_NAME}</h1>
+      <h1 style="color:white" class="py-5 text-center">${SITE_NAME}</h1>
     </div>
     <div class="container-fluid container-md table-responsive">
-      <table class="table table-hover border bg-white text-nowrap">
-        <thead class="thead-light"><tr><th>Release</th><th>Name</th><th>Created</th></tr></thead>
+      <table style="background-color:#292a2d" class="table table-hover text-nowrap">
+        <thead class="thead-dark"><tr><th>Release</th><th>Name</th><th>Created</th></tr></thead>
         <tbody>${tbody}</tbody>
       </table>
     </div>`
@@ -164,7 +164,7 @@ const makeHTML = (title, body) => `<!DOCTYPE html>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   ${HEAD}
 </head>
-<body class="bg-light">${body}</body>
+<body class="bg-dark">${body}</body>
 <!-- Powered by iBug/cf-github-releases: https://github.com/iBug/cf-github-releases -->
 </html>`;
 

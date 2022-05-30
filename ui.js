@@ -114,7 +114,6 @@ export function listFilesHTML(repository, data) {
 export function listReleasesHTML(data) {
   let tbody = "";
   const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
-  data.sort((a, b) => collator.compare(a["tag_name"], b["tag_name"]));
   for (let item of data) {
     let tag = item["tag_name"],
       name = item["name"],

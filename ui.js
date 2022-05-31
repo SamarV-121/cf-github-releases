@@ -93,7 +93,7 @@ export function listFilesHTML(repository, data) {
     displayName,
     `<div class="container-fluid container-md">
       <div style="color:white" class="py-5 text-center">
-        <h1>${displayName}</h1>
+        <h1><a href="https://github.com/${repository}/releases/edit/${tag}">${displayName}</a></h1>
         ${description}
       </div>
     </div>
@@ -103,8 +103,6 @@ export function listFilesHTML(repository, data) {
         <tbody>
           <tr><td colspan="2">
             <a href="../">${makeIconHTML("fas fa-lg fa-fw fa-level-up-alt")} Parent directory</a>
-          </td><td>
-            <a href="https://github.com/${repository}/releases/edit/${tag}" style="opacity: 0;">${makeIconHTML("fas fa-fw fa-edit")} Edit on GitHub</a>
           </td></tr>
           ${tbody}
         </tbody>

@@ -16,5 +16,10 @@ const HEAD = ``;
 // Github token - for private repos (optional)
 const GITHUB_TOKEN = undefined;
 
+// Auth
+const HTTP_AUTH = false;
+const USERNAME = undefined;
+const PASSWORD = undefined;
+
 // Don't touch this line
-export {DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME, HEAD, GITHUB_TOKEN};
+export {DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME, HEAD, GITHUB_TOKEN, HTTP_AUTH, USERNAME, PASSWORD};

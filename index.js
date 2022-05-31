@@ -1,7 +1,32 @@
-import { DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME, GITHUB_TOKEN } from "./config";
+import { DOMAIN, REPOSITORY, DEFAULT_TAG, SITE_NAME, GITHUB_TOKEN, HTTP_AUTH, USERNAME, PASSWORD } from "./config";
 import { listFilesHTML, listReleasesHTML, createHTMLResponse } from "./ui";
 
 addEventListener("fetch", (event) => event.respondWith(fetchEventHandler(event)));
+
+/**
+ * Break down base64 encoded authorization string into plain-text username and password
+ * @param {string} authorization
+ * @returns {string[]}
+ */
+function parseCredentials(authorization) {
+  const parts = authorization.split(' ')
+  const plainAuth = atob(parts[1])
+  const credentials = plainAuth.split(':')
+  return credentials
+}
+
+/**
+ * Helper funtion to generate Response object
+ * @param {string} message
+ * @returns {Response}
+ */
+function getUnauthorizedResponse(message) {
+  let response = new Response(message, {
+    status: 401,
+  })
+  response.headers.set('WWW-Authenticate', `Basic realm="index"`)
+  return response
+}
 
 async function fetchEventHandler(event) {
   const request = event.request;
@@ -22,6 +47,21 @@ async function fetchEventHandler(event) {
   let newUrl, tag, filename;
   let pathParts = url.pathname.split("/");
   if (pathParts.length === 2) {
+    if (HTTP_AUTH) {
+      const authorization = request.headers.get('authorization')
+      if (!request.headers.has('authorization')) {
+        return getUnauthorizedResponse(
+          'Provide User Name and Password to access this page.',
+        )
+      }
+      const credentials = parseCredentials(authorization)
+      if (credentials[0] !== USERNAME || credentials[1] !== PASSWORD) {
+        return getUnauthorizedResponse(
+          'The User Name and Password combination you have entered is invalid.',
+        )
+      }
+    }
+
     if (pathParts[1] === "") {
       // Front page - list available releases
       let apiUrl = `https://api.github.com/repos/${REPOSITORY}/releases?per_page=100`;
